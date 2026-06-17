@@ -1,0 +1,19 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: nginx-memory-alert
+  namespace: monitoring
+  labels:
+    release: kube-prometheus-stack
+spec:
+  groups:
+  - name: nginx.rules
+    rules:
+    - alert: NginxHighMemoryUsage
+      expr: container_memory_working_set_bytes{pod=~"nginx.*", namespace="sre-learning"} > 100000000
+      for: 2m
+      labels:
+        severity: warning
+      annotations:
+        summary: "Nginx pod memory usage is high"
+        description: "Pod {{ $labels.pod }} is using more than 100MB of memory"
