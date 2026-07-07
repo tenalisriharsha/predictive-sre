@@ -11,7 +11,7 @@ function App() {
     setLoading(true)
     setError(null)
     try {
-      const response = await fetch(`http://localhost:5001/predict/memory/${podName}`)
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/predict/memory/${podName}`)
       const data = await response.json()
       if (response.ok) {
         setPrediction(data)

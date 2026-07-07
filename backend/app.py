@@ -10,7 +10,7 @@ app = Flask(__name__)
 CORS(app)
 
 # Connect to Prometheus (running in your cluster via port-forward)
-prom = PrometheusConnect(url="http://localhost:9090", disable_ssl=True)
+prom = PrometheusConnect(url=os.environ.get("PROMETHEUS_URL", "http://localhost:9090"), disable_ssl=True)
 
 @app.route('/health')
 def health():

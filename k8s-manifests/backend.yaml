@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flask-backend
+  template:
+    metadata:
+      labels:
+        app: flask-backend
+    spec:
+      containers:
+      - name: flask
+        image: ghcr.io/tenalisriharsha/predictive-sre-backend:latest
+        ports:
+        - containerPort: 5001
+        env:
+        - name: PROMETHEUS_URL
+          value: "http://prometheus:9090"
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "200m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: flask-backend
+spec:
+  selector:
+    app: flask-backend
+  ports:
+    - port: 5001
+      targetPort: 5001
+  type: ClusterIP

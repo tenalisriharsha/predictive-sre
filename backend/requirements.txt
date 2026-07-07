@@ -1,0 +1,6 @@
+flask
+flask-cors
+prometheus-api-client
+prophet
+pandas
+numpy
