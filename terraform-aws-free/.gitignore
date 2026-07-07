@@ -1,0 +1,11 @@
+# Terraform provider binaries and state
+.terraform/
+terraform.tfstate
+terraform.tfstate.backup
+*.tfvars
+
+# SSH keys
+*.pem
+
+# Local .terraform lock file (optional — some teams commit this, we will)
+!.terraform.lock.hcl
